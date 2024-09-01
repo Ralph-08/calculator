@@ -1,0 +1,19 @@
+.equals-btn {
+    width: 7rem;
+    height: 3rem;
+    border-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5rem;
+    font-size: 1rem;
+    font-weight: bolder;
+    background-color: rgb(255, 153, 0);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  
+    &:hover {
+      background-color: rgb(255, 200, 119);
+    }
+  }
