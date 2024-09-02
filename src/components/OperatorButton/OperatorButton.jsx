@@ -3,9 +3,7 @@ import "./OperatorButton.scss";
 const OperatorButton = ({ operator, handleOperatorClick }) => {
   return (
     <button
-      className={
-        operator !== "=" ? "operator-btn" : "operator-btn operator-btn--wide "
-      }
+      className="operator-btn"
       onClick={() => handleOperatorClick(operator)}
     >
       {operator}

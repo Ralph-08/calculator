@@ -1,17 +1,14 @@
 import "./styles/App.scss";
 import NumberButtton from "./components/NumberButton/NumberButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import OperatorButton from "./components/OperatorButton/OperatorButton";
 import EqualsButton from "./components/EqualsButton/EqualsButton";
+import backspaceIcon from "./assets/icons/backspace-icon.svg";
 
 function App() {
   const [currentNumber, setCurrentNumber] = useState();
   const [operator, setOperator] = useState("");
   const [display, setDisplay] = useState("");
-
-  // useEffect(() => {
-  //   console.log(currentNumber);
-  // }, [currentNumber]);
 
   const handleNumClick = (number) => {
     setDisplay(`${display}${number}`);
@@ -21,8 +18,8 @@ function App() {
     setCurrentNumber(display);
     setDisplay("");
 
-    if (operator === "/") {
-      setOperator("/");
+    if (operator === "÷") {
+      setOperator("÷");
     } else if (operator === "X") {
       setOperator("X");
     } else if (operator === "-") {
@@ -33,7 +30,7 @@ function App() {
   };
 
   const handleEquals = () => {
-    if (operator === "/") {
+    if (operator === "÷") {
       setDisplay(Number(currentNumber) / Number(display));
     } else if (operator === "X") {
       setDisplay(Number(currentNumber) * Number(display));
@@ -41,19 +38,38 @@ function App() {
       setDisplay(Number(currentNumber) - Number(display));
     } else if (operator === "+") {
       setDisplay(Number(currentNumber) + Number(display));
+    } else {
+      return;
     }
+  };
+
+  const handleBackspace = () => {
+    if (!display) return;
+
+    const displayArray = display.split("");
+    displayArray.pop();
+    setDisplay(displayArray.join(""));
   };
 
   return (
     <main className="main">
       <section className="calculator">
-        <p className="calculator__display">{display}</p>
+        <section className="calculator__display-container">
+          <p className="calculator__display">{display}</p>
+          <img
+            onClick={handleBackspace}
+            className="calculator__backspace"
+            src={backspaceIcon}
+            alt="backspace-icon"
+          />
+        </section>
+
         <section className="calculator__num-pad">
           <NumberButtton number={7} handleNumClick={handleNumClick} />
           <NumberButtton number={8} handleNumClick={handleNumClick} />
           <NumberButtton number={9} handleNumClick={handleNumClick} />
           <OperatorButton
-            operator={"/"}
+            operator={"÷"}
             handleOperatorClick={handleOperatorClick}
           />
           <NumberButtton number={4} handleNumClick={handleNumClick} />
@@ -75,6 +91,7 @@ function App() {
           <OperatorButton
             operator={"+"}
             handleOperatorClick={handleOperatorClick}
+            currentOperator={operator}
           />
         </section>
       </section>

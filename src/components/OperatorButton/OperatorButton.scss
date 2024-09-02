@@ -17,6 +17,9 @@
     background-color: rgb(255, 200, 119);
   }
 
-  &--wide {
-width: 7rem;  }
+  &--active {
+    background-color: white;
+    color: rgb(255, 153, 0);
+  }
+
 }
