@@ -1,3 +1,16 @@
+@keyframes delete-animate {
+  from {
+    opacity: 0.3;
+    scale: 50%;
+    transform: translateX(1.5rem);
+  }
+  to {
+    opacity: 1;
+    scale: 100%;
+    transform: translateX(0);
+  }
+}
+
 .main {
   display: flex;
   align-items: center;
@@ -8,7 +21,7 @@
 
 .calculator {
   background-color: black;
-  padding: 2rem 1em;
+  padding: 0 1em 2rem;
   width: 25rem;
   border-radius: 1rem;
   width: 15rem;
@@ -18,6 +31,34 @@
   align-items: center;
   animation-name: slide-in;
   animation-duration: 0.5s;
+  box-shadow: 10px 10px 15px rgba(11, 11, 11, 0.639);
+
+  &__window-btns {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin: 1rem 0 2rem;
+
+    .window-btns__btn {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 10rem;
+      cursor: pointer;
+
+      &--red {
+        background-color: #fe655c;
+      }
+
+      &--yellow {
+        background-color: #fdbe35;
+      }
+
+      &--green {
+        background-color: #2dca45;
+      }
+    }
+  }
 
   &__display-container {
     display: flex;
@@ -50,6 +91,15 @@
     &:active {
       scale: 100%;
     }
+  }
+
+  &__delete {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: 0.15rem;
+
+    cursor: pointer;
+    animation: delete-animate 0.5s;
   }
 
   &__num-pad {

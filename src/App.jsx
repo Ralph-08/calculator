@@ -4,11 +4,13 @@ import { useState } from "react";
 import OperatorButton from "./components/OperatorButton/OperatorButton";
 import EqualsButton from "./components/EqualsButton/EqualsButton";
 import backspaceIcon from "./assets/icons/backspace-icon.svg";
+import deleteIcon from "./assets/icons/delete.svg";
 
 function App() {
   const [currentNumber, setCurrentNumber] = useState();
   const [operator, setOperator] = useState("");
   const [display, setDisplay] = useState("");
+  const [isReadyToDelete, setIsReadyToDelete] = useState(false);
 
   const handleNumClick = (number) => {
     setDisplay(`${display}${number}`);
@@ -30,14 +32,18 @@ function App() {
   };
 
   const handleEquals = () => {
+    if (!currentNumber) return;
+
+    setIsReadyToDelete(true);
+
     if (operator === "÷") {
-      setDisplay(Number(currentNumber) / Number(display));
+      setDisplay(`${Number(currentNumber) / Number(display)}`);
     } else if (operator === "X") {
-      setDisplay(Number(currentNumber) * Number(display));
+      setDisplay(`${Number(currentNumber) * Number(display)}`);
     } else if (operator === "-") {
-      setDisplay(Number(currentNumber) - Number(display));
+      setDisplay(`${Number(currentNumber) - Number(display)}`);
     } else if (operator === "+") {
-      setDisplay(Number(currentNumber) + Number(display));
+      setDisplay(`${Number(currentNumber) + Number(display)}`);
     } else {
       return;
     }
@@ -46,22 +52,46 @@ function App() {
   const handleBackspace = () => {
     if (!display) return;
 
+    console.log(typeof display);
+
     const displayArray = display.split("");
     displayArray.pop();
     setDisplay(displayArray.join(""));
   };
 
+  const handleDelete = () => {
+    setCurrentNumber("");
+    setOperator("");
+    setDisplay("");
+    setIsReadyToDelete(false);
+  };
+
   return (
     <main className="main">
       <section className="calculator">
+        <section className="calculator__window-btns">
+          <div className="window-btns__btn window-btns__btn--red"></div>
+          <div className="window-btns__btn window-btns__btn--yellow"></div>
+          <div className="window-btns__btn window-btns__btn--green"></div>
+        </section>
         <section className="calculator__display-container">
           <p className="calculator__display">{display}</p>
-          <img
-            onClick={handleBackspace}
-            className="calculator__backspace"
-            src={backspaceIcon}
-            alt="backspace-icon"
-          />
+          {!isReadyToDelete && (
+            <img
+              onClick={handleBackspace}
+              className="calculator__backspace"
+              src={backspaceIcon}
+              alt="backspace-icon"
+            />
+          )}
+          {isReadyToDelete && (
+            <img
+              onClick={handleDelete}
+              className="calculator__delete"
+              src={deleteIcon}
+              alt=""
+            />
+          )}
         </section>
 
         <section className="calculator__num-pad">
